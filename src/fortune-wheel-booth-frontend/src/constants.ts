@@ -84,6 +84,6 @@ export const PRIZES_VALUES_MAPPING: Record<string, string | null> = {
   ckUsdc: '5 ckUSDC',
   'merch.Hat': 'ICP Hat',
   'merch.Socks': 'ICP Socks',
-  'special.jackpot': 'JACKPOT',
+  'special.jackpot': null,
   'special.whitelist': null,
 };

@@ -10,6 +10,7 @@ import Order "mo:base/Order";
 import Buffer "mo:base/Buffer";
 import TrieSet "mo:base/TrieSet";
 import Fuzz "mo:fuzz";
+import Debug "mo:base/Debug";
 
 import IcpLedger "canister:icp_ledger";
 import ckBtcLedger "canister:ckbtc_ledger";
@@ -33,18 +34,28 @@ shared ({ caller = initialController }) actor class Main() {
     transactionBlockIndex : ?Nat;
   };
 
+  // ICP and ckBTC have 8 decimals: 100_000_000
+  let ICP_TX_AMOUNT_LIMIT = 90_000_000;
+  let CKBTC_TX_AMOUNT_LIMIT = 10_000;
+  // ckETH has 18 decimals: 1_000_000_000_000_000_000
+  let CKETH_TX_AMOUNT_LIMIT = 2_000_000_000_000_000;
+  // ckUSDC has 6 decimals: 1_000_000
+  let CKUSDC_TX_AMOUNT_LIMIT = 5_200_000;
+
+  let icp_amount = 73_800_000; // 0.73 ICP ~ $5
+  let ckbtc_amount = 8_700; // 0.000087 ckBTC ~ $5
+  let cketh_amount = 1_590_000_000_000_000; // 0.00159 ckETH ~ $5
+  let ckusdc_amount = 5_000_000; // 5 ckUSDC ~ $5
+
   /// The ?Nat8 is the quantity available for that prize. `null` means unlimited.
   ///
   /// The prizes with a maximum quantity are removed when they reach 0.
   private stable var prizesEntries : [(Prize, ?Nat8)] = [
     // -- tokens --
-    // ICP and ckBTC have 8 decimals: 100_000_000
-    (#icp(73_800_000), null), // 0.73 ICP ~ $5
-    (#ckBtc(8_700), null), // 0.000087 ckBTC ~ $5
-    // ckETH has 18 decimals: 1_000_000_000_000_000_000
-    (#ckEth(1_590_000_000_000_000), null), // 0.00159 ckETH ~ $5
-    // ckUSDC has 6 decimals: 1_000_000
-    (#ckUsdc(5_000_000), null), // 5 ckUSDC ~ $5
+    (#icp(icp_amount), null),
+    (#ckBtc(ckbtc_amount), null),
+    (#ckEth(cketh_amount), null),
+    (#ckUsdc(ckusdc_amount), null),
     // -- merch --
     // increase the probability of getting the merch prize by repeating it
     (#merch("Hat"), null),
@@ -53,8 +64,7 @@ shared ({ caller = initialController }) actor class Main() {
     (#merch("Socks"), null),
     // -- special --
     (#special("jackpot"), null),
-    (#special("jackpot"), null),
-    // (#noPrize, null), // unlimited
+    (#special("whitelist"), null),
   ];
   var prizes : Buffer.Buffer<(Prize, ?Nat8)> = Buffer.fromArray(prizesEntries);
 
@@ -138,6 +148,17 @@ shared ({ caller = initialController }) actor class Main() {
       case (#ckUsdc(amount)) {
         ?(await transferCkUsdc(receiver, amount));
       };
+      case (#special("jackpot")) {
+        let icp_idx = await transferIcp(receiver, icp_amount);
+        Debug.print("Jackpot: ICP block index" # debug_show (icp_idx));
+        let ckbtc_idx = await transferCkBtc(receiver, ckbtc_amount);
+        Debug.print("Jackpot: ckBTC block index" # debug_show (ckbtc_idx));
+        let cketh_idx = await transferCkEth(receiver, cketh_amount);
+        Debug.print("Jackpot: ckETH block index" # debug_show (cketh_idx));
+        let ckusdc_idx = await transferCkUsdc(receiver, ckusdc_amount);
+        Debug.print("Jackpot: ckUSDC block index" # debug_show (ckusdc_idx));
+        null;
+      };
       case (_) { null };
     };
 
@@ -180,8 +201,8 @@ shared ({ caller = initialController }) actor class Main() {
   };
 
   private func transferIcp(receiver : Principal, amount : Nat) : async Nat {
-    if (amount > 100_000_000) {
-      throw Error.reject("ICP amount must be less than 100_000_000");
+    if (amount > ICP_TX_AMOUNT_LIMIT) {
+      throw Error.reject("ICP amount must be less than" # debug_show (ICP_TX_AMOUNT_LIMIT));
     };
 
     let transferRes = await IcpLedger.icrc1_transfer({
@@ -204,8 +225,8 @@ shared ({ caller = initialController }) actor class Main() {
   };
 
   private func transferCkBtc(receiver : Principal, amount : Nat) : async Nat {
-    if (amount > 50_000) {
-      throw Error.reject("ckBTC amount must be less than 50_000");
+    if (amount > CKBTC_TX_AMOUNT_LIMIT) {
+      throw Error.reject("ckBTC amount must be less than" # debug_show (CKBTC_TX_AMOUNT_LIMIT));
     };
 
     let transferRes = await ckBtcLedger.icrc1_transfer({
@@ -228,8 +249,8 @@ shared ({ caller = initialController }) actor class Main() {
   };
 
   private func transferCkEth(receiver : Principal, amount : Nat) : async Nat {
-    if (amount > 10_000_000_000_000_000) {
-      throw Error.reject("ckETH amount must be less than 10_000_000_000_000_000");
+    if (amount > CKETH_TX_AMOUNT_LIMIT) {
+      throw Error.reject("ckETH amount must be less than" # debug_show (CKETH_TX_AMOUNT_LIMIT));
     };
 
     let transferRes = await ckEthLedger.icrc1_transfer({
@@ -252,8 +273,8 @@ shared ({ caller = initialController }) actor class Main() {
   };
 
   private func transferCkUsdc(receiver : Principal, amount : Nat) : async Nat {
-    if (amount > 1_100_000) {
-      throw Error.reject("ckBTC amount must be less than 1_100_000");
+    if (amount > CKUSDC_TX_AMOUNT_LIMIT) {
+      throw Error.reject("ckBTC amount must be less than " # debug_show (CKUSDC_TX_AMOUNT_LIMIT));
     };
 
     let transferRes = await ckUsdcLedger.icrc1_transfer({

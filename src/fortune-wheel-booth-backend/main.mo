@@ -63,8 +63,8 @@ shared ({ caller = initialController }) actor class Main() {
     (#merch("Socks"), null),
     (#merch("Socks"), null),
     // -- special --
-    (#special("jackpot"), null),
-    (#special("whitelist"), null),
+    (#noPrize, null),
+    (#noPrize, null),
   ];
   var prizes : Buffer.Buffer<(Prize, ?Nat8)> = Buffer.fromArray(prizesEntries);
 

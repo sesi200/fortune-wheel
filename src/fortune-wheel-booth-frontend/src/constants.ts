@@ -5,10 +5,7 @@ import ckBtc from './assets/images/ckbtc.png';
 import ckEth from './assets/images/cketh.png';
 import ckUsdc from './assets/images/ckusdc.svg';
 import IcpLogoLight from './assets/images/icp-logo-light.png';
-import jackpot from './assets/images/jackpot.svg';
-import jackpotModal from './assets/images/jackpot-modal.png';
-import whitelist from './assets/images/whitelist.svg';
-import whitelistModal from './assets/images/whitelist-modal.png';
+import tryAgain from './assets/images/try-again.svg';
 import merchHat from './assets/images/icp-hat.png';
 import merchSocks from './assets/images/icp-socks.png';
 
@@ -36,10 +33,9 @@ export const PRIZES: CustomWheelDataType[] = [
     style: { backgroundColor: '#ED1E79' },
   },
   {
-    option: 'special.whitelist',
-    image: { uri: whitelist, sizeMultiplier: 1.3, offsetY: 140 },
+    option: 'noPrize',
+    image: { uri: tryAgain, sizeMultiplier: 1.3, offsetY: 140 },
     style: { backgroundColor: '#F15A24' },
-    modalImageUri: whitelistModal,
   },
   {
     option: 'icp',
@@ -64,10 +60,9 @@ export const PRIZES: CustomWheelDataType[] = [
     modalImageUri: merchSocks,
   },
   {
-    option: 'special.jackpot',
-    image: { uri: jackpot, sizeMultiplier: 1.3, offsetY: 140 },
+    option: 'noPrize',
+    image: { uri: tryAgain, sizeMultiplier: 1.3, offsetY: 140 },
     style: { backgroundColor: '#F15A24' },
-    modalImageUri: jackpotModal,
   },
   {
     option: 'merch.Hat',
@@ -84,6 +79,5 @@ export const PRIZES_VALUES_MAPPING: Record<string, string | null> = {
   ckUsdc: '5 ckUSDC',
   'merch.Hat': 'ICP Hat',
   'merch.Socks': 'ICP Socks',
-  'special.jackpot': 'JACKPOT',
-  'special.whitelist': null,
+  noPrize: 'TRY AGAIN',
 };

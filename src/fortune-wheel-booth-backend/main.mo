@@ -72,6 +72,7 @@ shared ({ caller = initialController }) actor class Main() {
 
   private stable var extractedPrincipalsEntries : [(Principal, Extraction)] = [];
   private let extractedPrincipals = TrieMap.fromEntries<Principal, Extraction>(extractedPrincipalsEntries.vals(), Principal.equal, Principal.hash);
+  var extracting = false;
 
   // persist non-stable structures: https://internetcomputer.org/docs/current/motoko/main/canister-maintenance/upgrades#preupgrade-and-postupgrade-system-methods
   system func preupgrade() {
@@ -117,6 +118,10 @@ shared ({ caller = initialController }) actor class Main() {
   };
 
   public shared ({ caller }) func extract(receiver : Principal) : async Extraction {
+    if (extracting) {
+      throw Error.reject("Extraction already in progress");
+    };
+
     if (not isAdmin(caller)) {
       throw Error.reject("Only admins can extract");
     };
@@ -132,6 +137,8 @@ shared ({ caller = initialController }) actor class Main() {
     if (isPrincipalExtracted(receiver)) {
       throw Error.reject("Already extracted for this principal");
     };
+
+    extracting := true;
 
     let prize = await getRandomPrize();
 
@@ -169,6 +176,8 @@ shared ({ caller = initialController }) actor class Main() {
     };
 
     extractedPrincipals.put(receiver, extraction);
+
+    extracting := false;
 
     extraction;
   };

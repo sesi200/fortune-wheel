@@ -339,6 +339,12 @@ shared ({ caller = initialController }) actor class Main() {
     Iter.toArray(extractedPrincipals.entries());
   };
 
+  public func clearExtractions() {
+    for (key in extractedPrincipals.keys()) {
+      extractedPrincipals.delete(key);
+    };
+  };
+
   type ManualSendTokens = {
     #icp : Nat;
     #ckBtc : Nat;

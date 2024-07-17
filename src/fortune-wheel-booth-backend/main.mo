@@ -64,7 +64,7 @@ shared ({ caller = initialController }) actor class Main() {
     (#merch("Socks"), null),
     // -- special --
     (#special("jackpot"), null),
-    (#special("whitelist"), null),
+    // (#special("whitelist"), null),
   ];
   var prizes : Buffer.Buffer<(Prize, ?Nat8)> = Buffer.fromArray(prizesEntries);
 
@@ -156,13 +156,17 @@ shared ({ caller = initialController }) actor class Main() {
         ?(await transferCkUsdc(receiver, amount));
       };
       case (#special("jackpot")) {
-        let icp_idx = await transferIcp(receiver, icp_amount);
+        let icp_transfer = transferIcp(receiver, icp_amount);
+        let ckbtc_transfer = transferCkBtc(receiver, ckbtc_amount);
+        let cketh_transfer = transferCkEth(receiver, cketh_amount);
+        let ckusdc_transfer = transferCkUsdc(receiver, ckusdc_amount);
+        let icp_idx = await icp_transfer;
         Debug.print("Jackpot: ICP block index" # debug_show (icp_idx));
-        let ckbtc_idx = await transferCkBtc(receiver, ckbtc_amount);
+        let ckbtc_idx = await ckbtc_transfer;
         Debug.print("Jackpot: ckBTC block index" # debug_show (ckbtc_idx));
-        let cketh_idx = await transferCkEth(receiver, cketh_amount);
+        let cketh_idx = await cketh_transfer;
         Debug.print("Jackpot: ckETH block index" # debug_show (cketh_idx));
-        let ckusdc_idx = await transferCkUsdc(receiver, ckusdc_amount);
+        let ckusdc_idx = await ckusdc_transfer;
         Debug.print("Jackpot: ckUSDC block index" # debug_show (ckusdc_idx));
         null;
       };

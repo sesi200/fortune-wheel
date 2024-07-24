@@ -144,22 +144,22 @@ shared ({ caller = initialController }) actor class Main() {
 
     let transactionBlockIndex = switch (prize) {
       case (#icp(amount)) {
-        ?(await transferIcp(receiver, amount));
+        ?(await transferIcp(receiver, amount, true));
       };
       case (#ckBtc(amount)) {
-        ?(await transferCkBtc(receiver, amount));
+        ?(await transferCkBtc(receiver, amount, true));
       };
       case (#ckEth(amount)) {
-        ?(await transferCkEth(receiver, amount));
+        ?(await transferCkEth(receiver, amount, true));
       };
       case (#ckUsdc(amount)) {
-        ?(await transferCkUsdc(receiver, amount));
+        ?(await transferCkUsdc(receiver, amount, true));
       };
       case (#special("jackpot")) {
-        let icp_transfer = transferIcp(receiver, icp_amount);
-        let ckbtc_transfer = transferCkBtc(receiver, ckbtc_amount);
-        let cketh_transfer = transferCkEth(receiver, cketh_amount);
-        let ckusdc_transfer = transferCkUsdc(receiver, ckusdc_amount);
+        let icp_transfer = transferIcp(receiver, icp_amount, true);
+        let ckbtc_transfer = transferCkBtc(receiver, ckbtc_amount, true);
+        let cketh_transfer = transferCkEth(receiver, cketh_amount, true);
+        let ckusdc_transfer = transferCkUsdc(receiver, ckusdc_amount, true);
         let icp_idx = await icp_transfer;
         Debug.print("Jackpot: ICP block index" # debug_show (icp_idx));
         let ckbtc_idx = await ckbtc_transfer;
@@ -213,8 +213,8 @@ shared ({ caller = initialController }) actor class Main() {
     };
   };
 
-  private func transferIcp(receiver : Principal, amount : Nat) : async Nat {
-    if (amount > ICP_TX_AMOUNT_LIMIT) {
+  private func transferIcp(receiver : Principal, amount : Nat, safe : Bool) : async Nat {
+    if (safe and amount > ICP_TX_AMOUNT_LIMIT) {
       throw Error.reject("ICP amount must be less than" # debug_show (ICP_TX_AMOUNT_LIMIT));
     };
 
@@ -237,8 +237,8 @@ shared ({ caller = initialController }) actor class Main() {
     };
   };
 
-  private func transferCkBtc(receiver : Principal, amount : Nat) : async Nat {
-    if (amount > CKBTC_TX_AMOUNT_LIMIT) {
+  private func transferCkBtc(receiver : Principal, amount : Nat, safe : Bool) : async Nat {
+    if (safe and amount > CKBTC_TX_AMOUNT_LIMIT) {
       throw Error.reject("ckBTC amount must be less than" # debug_show (CKBTC_TX_AMOUNT_LIMIT));
     };
 
@@ -261,8 +261,8 @@ shared ({ caller = initialController }) actor class Main() {
     };
   };
 
-  private func transferCkEth(receiver : Principal, amount : Nat) : async Nat {
-    if (amount > CKETH_TX_AMOUNT_LIMIT) {
+  private func transferCkEth(receiver : Principal, amount : Nat, safe : Bool) : async Nat {
+    if (safe and amount > CKETH_TX_AMOUNT_LIMIT) {
       throw Error.reject("ckETH amount must be less than" # debug_show (CKETH_TX_AMOUNT_LIMIT));
     };
 
@@ -285,8 +285,8 @@ shared ({ caller = initialController }) actor class Main() {
     };
   };
 
-  private func transferCkUsdc(receiver : Principal, amount : Nat) : async Nat {
-    if (amount > CKUSDC_TX_AMOUNT_LIMIT) {
+  private func transferCkUsdc(receiver : Principal, amount : Nat, safe : Bool) : async Nat {
+    if (safe and amount > CKUSDC_TX_AMOUNT_LIMIT) {
       throw Error.reject("ckBTC amount must be less than " # debug_show (CKUSDC_TX_AMOUNT_LIMIT));
     };
 
@@ -376,16 +376,16 @@ shared ({ caller = initialController }) actor class Main() {
 
     switch (tokens) {
       case (#icp(amount)) {
-        await transferIcp(receiver, amount);
+        await transferIcp(receiver, amount, false);
       };
       case (#ckBtc(amount)) {
-        await transferCkBtc(receiver, amount);
+        await transferCkBtc(receiver, amount, false);
       };
       case (#ckEth(amount)) {
-        await transferCkEth(receiver, amount);
+        await transferCkEth(receiver, amount, false);
       };
       case (#ckUsdc(amount)) {
-        await transferCkUsdc(receiver, amount);
+        await transferCkUsdc(receiver, amount, false);
       };
     };
   };

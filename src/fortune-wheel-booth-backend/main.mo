@@ -42,9 +42,10 @@ shared ({ caller = initialController }) actor class Main() {
   // ckUSDC has 6 decimals: 1_000_000
   let CKUSDC_TX_AMOUNT_LIMIT = 5_200_000;
 
-  let icp_amount = 73_800_000; // 0.73 ICP ~ $5
-  let ckbtc_amount = 8_700; // 0.000087 ckBTC ~ $5
-  let cketh_amount = 1_590_000_000_000_000; // 0.00159 ckETH ~ $5
+  // exchange rates from Coinbase @ 2024-07-24 21:00 CEST
+  let icp_amount = 51_700_000; // 0.517 ICP ~ $5
+  let ckbtc_amount = 7_600; // 0.000076 ckBTC ~ $5
+  let cketh_amount = 1_480_000_000_000_000; // 0.00148 ckETH ~ $5
   let ckusdc_amount = 5_000_000; // 5 ckUSDC ~ $5
 
   /// The ?Nat8 is the quantity available for that prize. `null` means unlimited.
@@ -58,13 +59,13 @@ shared ({ caller = initialController }) actor class Main() {
     (#ckUsdc(ckusdc_amount), null),
     // -- merch --
     // increase the probability of getting the merch prize by repeating it
-    (#merch("Hat"), null),
-    (#merch("Hat"), null),
-    (#merch("Socks"), null),
-    (#merch("Socks"), null),
+    (#merch("socks"), null),
+    (#merch("hat"), null),
+    (#merch("card"), null),
+    (#merch("bag"), null),
     // -- special --
     (#special("jackpot"), null),
-    // (#special("whitelist"), null),
+    (#special("superJackpot"), null),
   ];
   var prizes : Buffer.Buffer<(Prize, ?Nat8)> = Buffer.fromArray(prizesEntries);
 
@@ -156,18 +157,27 @@ shared ({ caller = initialController }) actor class Main() {
         ?(await transferCkUsdc(receiver, amount, true));
       };
       case (#special("jackpot")) {
+        let ckbtc_transfer = transferCkBtc(receiver, ckbtc_amount, true);
+        let cketh_transfer = transferCkEth(receiver, cketh_amount, true);
+        let ckbtc_idx = await ckbtc_transfer;
+        Debug.print("Jackpot: ckBTC block index: " # debug_show (ckbtc_idx));
+        let cketh_idx = await cketh_transfer;
+        Debug.print("Jackpot: ckETH block index: " # debug_show (cketh_idx));
+        null;
+      };
+      case (#special("superJackpot")) {
         let icp_transfer = transferIcp(receiver, icp_amount, true);
         let ckbtc_transfer = transferCkBtc(receiver, ckbtc_amount, true);
         let cketh_transfer = transferCkEth(receiver, cketh_amount, true);
         let ckusdc_transfer = transferCkUsdc(receiver, ckusdc_amount, true);
         let icp_idx = await icp_transfer;
-        Debug.print("Jackpot: ICP block index" # debug_show (icp_idx));
+        Debug.print("Jackpot: ICP block index: " # debug_show (icp_idx));
         let ckbtc_idx = await ckbtc_transfer;
-        Debug.print("Jackpot: ckBTC block index" # debug_show (ckbtc_idx));
+        Debug.print("Jackpot: ckBTC block index: " # debug_show (ckbtc_idx));
         let cketh_idx = await cketh_transfer;
-        Debug.print("Jackpot: ckETH block index" # debug_show (cketh_idx));
+        Debug.print("Jackpot: ckETH block index: " # debug_show (cketh_idx));
         let ckusdc_idx = await ckusdc_transfer;
-        Debug.print("Jackpot: ckUSDC block index" # debug_show (ckusdc_idx));
+        Debug.print("Jackpot: ckUSDC block index: " # debug_show (ckusdc_idx));
         null;
       };
       case (_) { null };

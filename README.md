@@ -67,7 +67,7 @@ Which will start a server at `http://localhost:8080`, proxying API requests to t
 To get the latest extraction (you don't need to be authenticated), use the following command:
 
 ```bash
-dfx canister call fortune-wheel-booth-backend getLatestExtraction
+dfx canister call fortune-wheel-booth-backend getLastExtraction
 ```
 
 ### Admin

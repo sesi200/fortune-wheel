@@ -7,10 +7,12 @@ import ckUsdc from './assets/images/ckusdc.svg';
 import IcpLogoLight from './assets/images/icp-logo-light.png';
 import jackpot from './assets/images/jackpot.svg';
 import jackpotModal from './assets/images/jackpot-modal.png';
-import whitelist from './assets/images/whitelist.svg';
-import whitelistModal from './assets/images/whitelist-modal.png';
-import merchHat from './assets/images/icp-hat.png';
+import superJackpot from './assets/images/super-jackpot.svg';
+import superJackpotModal from './assets/images/super-jackpot-modal.png';
 import merchSocks from './assets/images/icp-socks.png';
+import merchHat from './assets/images/icp-hat.png';
+import merchCard from './assets/images/card.png';
+import merchBag from './assets/images/icp-bag.png';
 
 type CustomWheelDataType = WheelDataType & {
   option: string;
@@ -25,7 +27,7 @@ export const PRIZES: CustomWheelDataType[] = [
     style: { backgroundColor: '#29ABE2' },
   },
   {
-    option: 'merch.Socks',
+    option: 'merch.socks',
     image: { uri: Astronaut, sizeMultiplier: 0.7, offsetY: 220 },
     style: { backgroundColor: '#522785' },
     modalImageUri: merchSocks,
@@ -36,10 +38,10 @@ export const PRIZES: CustomWheelDataType[] = [
     style: { backgroundColor: '#ED1E79' },
   },
   {
-    option: 'special.whitelist',
-    image: { uri: whitelist, sizeMultiplier: 1.3, offsetY: 140 },
+    option: 'special.superJackpot',
+    image: { uri: superJackpot, sizeMultiplier: 1.3, offsetY: 140 },
     style: { backgroundColor: '#F15A24' },
-    modalImageUri: whitelistModal,
+    modalImageUri: superJackpotModal,
   },
   {
     option: 'icp',
@@ -47,7 +49,7 @@ export const PRIZES: CustomWheelDataType[] = [
     style: { backgroundColor: '#FBB03B' },
   },
   {
-    option: 'merch.Hat',
+    option: 'merch.hat',
     image: { uri: Astronaut, sizeMultiplier: 0.7, offsetY: 220 },
     style: { backgroundColor: '#29ABE2' },
     modalImageUri: merchHat,
@@ -58,10 +60,10 @@ export const PRIZES: CustomWheelDataType[] = [
     style: { backgroundColor: '#522785' },
   },
   {
-    option: 'merch.Socks',
+    option: 'merch.card',
     image: { uri: Astronaut, sizeMultiplier: 0.7, offsetY: 220 },
     style: { backgroundColor: '#ED1E79' },
-    modalImageUri: merchSocks,
+    modalImageUri: merchCard,
   },
   {
     option: 'special.jackpot',
@@ -70,10 +72,10 @@ export const PRIZES: CustomWheelDataType[] = [
     modalImageUri: jackpotModal,
   },
   {
-    option: 'merch.Hat',
+    option: 'merch.bag',
     image: { uri: Astronaut, sizeMultiplier: 0.7, offsetY: 220 },
     style: { backgroundColor: '#FBB03B' },
-    modalImageUri: merchHat,
+    modalImageUri: merchBag,
   },
 ];
 
@@ -82,8 +84,10 @@ export const PRIZES_VALUES_MAPPING: Record<string, string | null> = {
   icp: '$5 in ICP',
   ckBtc: '$5 in ckBTC',
   ckUsdc: '5 ckUSDC',
-  'merch.Hat': 'ICP Hat',
-  'merch.Socks': 'ICP Socks',
+  'merch.hat': null,
+  'merch.socks': null,
+  'merch.card': null,
+  'merch.bag': null,
   'special.jackpot': null,
-  'special.whitelist': null,
+  'special.superJackpot': null,
 };

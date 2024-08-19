@@ -59,10 +59,10 @@ shared ({ caller = initialController }) actor class Main() {
     (#ckUsdc(ckusdc_amount), null),
     // -- merch --
     // increase the probability of getting the merch prize by repeating it
-    (#merch("socks"), null),
+    (#merch("fan"), null),
     (#merch("hat"), null),
-    (#merch("card"), null),
-    (#merch("bag"), null),
+    (#merch("towel"), null),
+    // (#merch("bag"), null),
     // -- special --
     (#special("jackpot"), null),
     (#special("superJackpot"), null),

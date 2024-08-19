@@ -9,10 +9,9 @@ import jackpot from './assets/images/jackpot.svg';
 import jackpotModal from './assets/images/jackpot-modal.png';
 import superJackpot from './assets/images/super-jackpot.svg';
 import superJackpotModal from './assets/images/super-jackpot-modal.png';
-import merchSocks from './assets/images/icp-socks.png';
+import merchFan from './assets/images/icp-fan.png';
 import merchHat from './assets/images/icp-hat.png';
-import merchCard from './assets/images/card.png';
-import merchBag from './assets/images/icp-bag.png';
+import merchTowel from './assets/images/icp-towel.png';
 
 type CustomWheelDataType = WheelDataType & {
   option: string;
@@ -27,10 +26,10 @@ export const PRIZES: CustomWheelDataType[] = [
     style: { backgroundColor: '#29ABE2' },
   },
   {
-    option: 'merch.socks',
+    option: 'merch.fan',
     image: { uri: Astronaut, sizeMultiplier: 0.7, offsetY: 220 },
     style: { backgroundColor: '#522785' },
-    modalImageUri: merchSocks,
+    modalImageUri: merchFan,
   },
   {
     option: 'ckUsdc',
@@ -60,10 +59,10 @@ export const PRIZES: CustomWheelDataType[] = [
     style: { backgroundColor: '#522785' },
   },
   {
-    option: 'merch.card',
+    option: 'merch.towel',
     image: { uri: Astronaut, sizeMultiplier: 0.7, offsetY: 220 },
     style: { backgroundColor: '#ED1E79' },
-    modalImageUri: merchCard,
+    modalImageUri: merchTowel,
   },
   {
     option: 'special.jackpot',
@@ -71,12 +70,12 @@ export const PRIZES: CustomWheelDataType[] = [
     style: { backgroundColor: '#F15A24' },
     modalImageUri: jackpotModal,
   },
-  {
-    option: 'merch.bag',
-    image: { uri: Astronaut, sizeMultiplier: 0.7, offsetY: 220 },
-    style: { backgroundColor: '#FBB03B' },
-    modalImageUri: merchBag,
-  },
+  // {
+  //   option: 'merch.bag',
+  //   image: { uri: Astronaut, sizeMultiplier: 0.7, offsetY: 220 },
+  //   style: { backgroundColor: '#FBB03B' },
+  //   modalImageUri: merchBag,
+  // },
 ];
 
 export const PRIZES_VALUES_MAPPING: Record<string, string | null> = {
@@ -85,9 +84,9 @@ export const PRIZES_VALUES_MAPPING: Record<string, string | null> = {
   ckBtc: '$5 in ckBTC',
   ckUsdc: '5 ckUSDC',
   'merch.hat': null,
-  'merch.socks': null,
-  'merch.card': null,
-  'merch.bag': null,
+  'merch.fan': null,
+  'merch.towel': null,
+  // 'merch.bag': null,
   'special.jackpot': null,
   'special.superJackpot': null,
 };

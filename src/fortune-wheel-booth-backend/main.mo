@@ -84,6 +84,31 @@ shared ({ caller = initialController }) actor class Main() {
   system func postupgrade() {
     prizesEntries := [];
     extractedPrincipalsEntries := [];
+    // to manually reset prizes
+    // prizes := Buffer.fromArray([
+    //   // -- tokens --
+    //   (#icp(icp_amount), null),
+    //   (#ckBtc(ckbtc_amount), null),
+    //   (#ckEth(cketh_amount), null),
+    //   (#ckUsdc(ckusdc_amount), null),
+    //   // -- merch --
+    //   // increase the probability of getting the merch prize by repeating it
+    //   (#merch("fan"), null),
+    //   (#merch("baliHat"), null),
+    //   (#merch("towel"), null),
+    //   (#merch("hat"), null),
+    //   // -- special --
+    //   (#special("jackpot"), null),
+    //   (#special("superJackpot"), null),
+    // ]);
+  };
+
+  public shared ({ caller }) func listPrizes() : async [(Prize, ?Nat8)] {
+    if (not isAdmin(caller)) {
+      throw Error.reject("Only admins can list prizes");
+    };
+
+    Buffer.toArray(prizes);
   };
 
   private func isAdmin(principal : Principal) : Bool {

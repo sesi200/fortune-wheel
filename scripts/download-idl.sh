@@ -33,6 +33,7 @@ download_candid() {
     return 0
 }
 
+mkdir -p .dfx/ic/canisters/idl
 # Call the function with the arguments arg1, arg2, and arg3
 for arg in  "icp_ledger" "ckbtc_ledger" "cketh_ledger" "ckusdc_ledger"; do
     download_candid "$arg"

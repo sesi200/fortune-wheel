@@ -60,9 +60,9 @@ shared ({ caller = initialController }) actor class Main() {
     // -- merch --
     // increase the probability of getting the merch prize by repeating it
     (#merch("fan"), null),
-    (#merch("hat"), null),
+    (#merch("baliHat"), null),
     (#merch("towel"), null),
-    // (#merch("bag"), null),
+    (#merch("hat"), null),
     // -- special --
     (#special("jackpot"), null),
     (#special("superJackpot"), null),

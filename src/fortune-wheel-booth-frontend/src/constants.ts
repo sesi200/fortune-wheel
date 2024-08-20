@@ -10,6 +10,7 @@ import jackpotModal from './assets/images/jackpot-modal.png';
 import superJackpot from './assets/images/super-jackpot.svg';
 import superJackpotModal from './assets/images/super-jackpot-modal.png';
 import merchFan from './assets/images/icp-fan.png';
+import merchBaliHat from './assets/images/icp-bali-hat.png';
 import merchHat from './assets/images/icp-hat.png';
 import merchTowel from './assets/images/icp-towel.png';
 
@@ -48,10 +49,10 @@ export const PRIZES: CustomWheelDataType[] = [
     style: { backgroundColor: '#FBB03B' },
   },
   {
-    option: 'merch.hat',
+    option: 'merch.baliHat',
     image: { uri: Astronaut, sizeMultiplier: 0.7, offsetY: 220 },
     style: { backgroundColor: '#29ABE2' },
-    modalImageUri: merchHat,
+    modalImageUri: merchBaliHat,
   },
   {
     option: 'ckBtc',
@@ -70,12 +71,12 @@ export const PRIZES: CustomWheelDataType[] = [
     style: { backgroundColor: '#F15A24' },
     modalImageUri: jackpotModal,
   },
-  // {
-  //   option: 'merch.bag',
-  //   image: { uri: Astronaut, sizeMultiplier: 0.7, offsetY: 220 },
-  //   style: { backgroundColor: '#FBB03B' },
-  //   modalImageUri: merchBag,
-  // },
+  {
+    option: 'merch.hat',
+    image: { uri: Astronaut, sizeMultiplier: 0.7, offsetY: 220 },
+    style: { backgroundColor: '#FBB03B' },
+    modalImageUri: merchHat,
+  },
 ];
 
 export const PRIZES_VALUES_MAPPING: Record<string, string | null> = {
@@ -83,10 +84,10 @@ export const PRIZES_VALUES_MAPPING: Record<string, string | null> = {
   icp: '$5 in ICP',
   ckBtc: '$5 in ckBTC',
   ckUsdc: '5 ckUSDC',
-  'merch.hat': null,
+  'merch.baliHat': null,
   'merch.fan': null,
   'merch.towel': null,
-  // 'merch.bag': null,
+  'merch.hat': null,
   'special.jackpot': null,
   'special.superJackpot': null,
 };

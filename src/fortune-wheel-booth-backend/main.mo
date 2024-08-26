@@ -17,7 +17,7 @@ import ckBtcLedger "canister:ckbtc_ledger";
 import ckEthLedger "canister:cketh_ledger";
 import ckUsdcLedger "canister:ckusdc_ledger";
 
-shared ({ caller = initialController }) actor class Main() {
+shared ({ caller = initialController }) actor class Main() = self {
   type Prize = {
     #icp : Nat;
     #ckBtc : Nat;
@@ -422,6 +422,58 @@ shared ({ caller = initialController }) actor class Main() {
       case (#ckUsdc(amount)) {
         await transferCkUsdc(receiver, amount, false);
       };
+    };
+  };
+
+  public shared ({ caller }) func manualTransferAll(receiver : Principal) {
+    if (not isAdmin(caller)) {
+      throw Error.reject("Only admins can manually send");
+    };
+
+    if (Principal.isAnonymous(receiver)) {
+      throw Error.reject("Cannot send to anonymous principal");
+    };
+
+    if (Principal.fromText("aaaaa-aa") == receiver) {
+      throw Error.reject("Cannot send to management canister");
+    };
+
+    let self_principal = Principal.fromActor(self);
+
+    let icp_fee = await IcpLedger.icrc1_fee();
+    let icp_balance = await IcpLedger.icrc1_balance_of({
+      owner = self_principal;
+      subaccount = null;
+    });
+    if (icp_balance > icp_fee) {
+      await transferIcp(receiver, icp_balance - icp_fee, false);
+    };
+
+    let ckusdc_fee = await ckUsdcLedger.icrc1_fee();
+    let ckusdc_balance = await ckUsdcLedger.icrc1_balance_of({
+      owner = self_principal;
+      subaccount = null;
+    });
+    if (ckusdc_balance > ckusdc_fee) {
+      await transferCkUsdc(receiver, ckusdc_balance - ckusdc_fee, false);
+    };
+
+    let ckbtc_fee = await ckBtcLedger.icrc1_fee();
+    let ckbtc_balance = await ckBtcLedger.icrc1_balance_of({
+      owner = self_principal;
+      subaccount = null;
+    });
+    if (ckbtc_balance > ckbtc_fee) {
+      await transferCkBtc(receiver, ckbtc_balance - ckbtc_fee, false);
+    };
+
+    let cketh_fee = await ckEthLedger.icrc1_fee();
+    let cketh_balance = await ckEthLedger.icrc1_balance_of({
+      owner = self_principal;
+      subaccount = null;
+    });
+    if (cketh_balance > cketh_fee) {
+      await transferIcp(receiver, cketh_balance - cketh_fee, false);
     };
   };
 

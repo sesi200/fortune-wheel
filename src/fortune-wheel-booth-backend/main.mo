@@ -446,7 +446,7 @@ shared ({ caller = initialController }) actor class Main() = self {
       subaccount = null;
     });
     if (icp_balance > icp_fee) {
-      await transferIcp(receiver, icp_balance - icp_fee, false);
+      ignore transferIcp(receiver, icp_balance - icp_fee, false);
     };
 
     let ckusdc_fee = await ckUsdcLedger.icrc1_fee();
@@ -455,7 +455,7 @@ shared ({ caller = initialController }) actor class Main() = self {
       subaccount = null;
     });
     if (ckusdc_balance > ckusdc_fee) {
-      await transferCkUsdc(receiver, ckusdc_balance - ckusdc_fee, false);
+      ignore transferCkUsdc(receiver, ckusdc_balance - ckusdc_fee, false);
     };
 
     let ckbtc_fee = await ckBtcLedger.icrc1_fee();
@@ -464,7 +464,7 @@ shared ({ caller = initialController }) actor class Main() = self {
       subaccount = null;
     });
     if (ckbtc_balance > ckbtc_fee) {
-      await transferCkBtc(receiver, ckbtc_balance - ckbtc_fee, false);
+      ignore transferCkBtc(receiver, ckbtc_balance - ckbtc_fee, false);
     };
 
     let cketh_fee = await ckEthLedger.icrc1_fee();
@@ -473,7 +473,7 @@ shared ({ caller = initialController }) actor class Main() = self {
       subaccount = null;
     });
     if (cketh_balance > cketh_fee) {
-      await transferIcp(receiver, cketh_balance - cketh_fee, false);
+      ignore transferIcp(receiver, cketh_balance - cketh_fee, false);
     };
   };
 

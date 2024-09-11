@@ -9,10 +9,8 @@ import jackpot from './assets/images/jackpot.svg';
 import jackpotModal from './assets/images/jackpot-modal.png';
 import superJackpot from './assets/images/super-jackpot.svg';
 import superJackpotModal from './assets/images/super-jackpot-modal.png';
-import merchFan from './assets/images/icp-fan.png';
-import merchBaliHat from './assets/images/icp-bali-hat.png';
-import merchHat from './assets/images/icp-hat.png';
-import merchTowel from './assets/images/icp-towel.png';
+import merchBag from './assets/images/icp-bag.png';
+import merchSocks from './assets/images/icp-socks.png';
 
 type CustomWheelDataType = WheelDataType & {
   option: string;
@@ -27,10 +25,10 @@ export const PRIZES: CustomWheelDataType[] = [
     style: { backgroundColor: '#29ABE2' },
   },
   {
-    option: 'merch.fan',
+    option: 'merch.bag',
     image: { uri: Astronaut, sizeMultiplier: 0.7, offsetY: 220 },
     style: { backgroundColor: '#522785' },
-    modalImageUri: merchFan,
+    modalImageUri: merchBag,
   },
   {
     option: 'ckUsdc',
@@ -49,10 +47,10 @@ export const PRIZES: CustomWheelDataType[] = [
     style: { backgroundColor: '#FBB03B' },
   },
   {
-    option: 'merch.baliHat',
+    option: 'merch.socks',
     image: { uri: Astronaut, sizeMultiplier: 0.7, offsetY: 220 },
     style: { backgroundColor: '#29ABE2' },
-    modalImageUri: merchBaliHat,
+    modalImageUri: merchSocks,
   },
   {
     option: 'ckBtc',
@@ -60,10 +58,10 @@ export const PRIZES: CustomWheelDataType[] = [
     style: { backgroundColor: '#522785' },
   },
   {
-    option: 'merch.towel',
+    option: 'merch.bag',
     image: { uri: Astronaut, sizeMultiplier: 0.7, offsetY: 220 },
-    style: { backgroundColor: '#ED1E79' },
-    modalImageUri: merchTowel,
+    style: { backgroundColor: '#522785' },
+    modalImageUri: merchBag,
   },
   {
     option: 'special.jackpot',
@@ -72,10 +70,10 @@ export const PRIZES: CustomWheelDataType[] = [
     modalImageUri: jackpotModal,
   },
   {
-    option: 'merch.hat',
+    option: 'merch.socks',
     image: { uri: Astronaut, sizeMultiplier: 0.7, offsetY: 220 },
-    style: { backgroundColor: '#FBB03B' },
-    modalImageUri: merchHat,
+    style: { backgroundColor: '#29ABE2' },
+    modalImageUri: merchSocks,
   },
 ];
 
@@ -84,10 +82,8 @@ export const PRIZES_VALUES_MAPPING: Record<string, string | null> = {
   icp: '$5 in ICP',
   ckBtc: '$5 in ckBTC',
   ckUsdc: '5 ckUSDC',
-  'merch.baliHat': null,
-  'merch.fan': null,
-  'merch.towel': null,
-  'merch.hat': null,
+  'merch.bag': null,
+  'merch.socks': null,
   'special.jackpot': null,
   'special.superJackpot': null,
 };

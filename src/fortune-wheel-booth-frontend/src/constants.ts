@@ -44,13 +44,7 @@ export const PRIZES: CustomWheelDataType[] = [
   {
     option: 'icp',
     image: { uri: IcpLogoLight, sizeMultiplier: 0.7, offsetY: 220 },
-    style: { backgroundColor: '#FBB03B' },
-  },
-  {
-    option: 'merch.socks',
-    image: { uri: Astronaut, sizeMultiplier: 0.7, offsetY: 220 },
     style: { backgroundColor: '#29ABE2' },
-    modalImageUri: merchSocks,
   },
   {
     option: 'ckBtc',
@@ -58,21 +52,15 @@ export const PRIZES: CustomWheelDataType[] = [
     style: { backgroundColor: '#522785' },
   },
   {
-    option: 'merch.bag',
-    image: { uri: Astronaut, sizeMultiplier: 0.7, offsetY: 220 },
-    style: { backgroundColor: '#522785' },
-    modalImageUri: merchBag,
-  },
-  {
     option: 'special.jackpot',
     image: { uri: jackpot, sizeMultiplier: 1.3, offsetY: 140 },
-    style: { backgroundColor: '#F15A24' },
+    style: { backgroundColor: '#ED1E79' },
     modalImageUri: jackpotModal,
   },
   {
     option: 'merch.socks',
     image: { uri: Astronaut, sizeMultiplier: 0.7, offsetY: 220 },
-    style: { backgroundColor: '#29ABE2' },
+    style: { backgroundColor: '#F15A24' },
     modalImageUri: merchSocks,
   },
 ];

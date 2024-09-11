@@ -43,9 +43,9 @@ shared ({ caller = initialController }) actor class Main() = self {
   let CKUSDC_TX_AMOUNT_LIMIT = 5_200_000;
 
   // exchange rates from Coinbase @ 2024-07-24 21:00 CEST
-  let icp_amount = 51_700_000; // 0.517 ICP ~ $5
-  let ckbtc_amount = 7_600; // 0.000076 ckBTC ~ $5
-  let cketh_amount = 1_480_000_000_000_000; // 0.00148 ckETH ~ $5
+  let icp_amount = 58_400_000; // 0.584 ICP ~ $5
+  let ckbtc_amount = 8_800; // 0.000088 ckBTC ~ $5
+  let cketh_amount = 2_150_000_000_000_000; // 0.00215 ckETH ~ $5
   let ckusdc_amount = 5_000_000; // 5 ckUSDC ~ $5
 
   /// The ?Nat8 is the quantity available for that prize. `null` means unlimited.
@@ -91,10 +91,8 @@ shared ({ caller = initialController }) actor class Main() = self {
     //   (#ckUsdc(ckusdc_amount), null),
     //   // -- merch --
     //   // increase the probability of getting the merch prize by repeating it
-    //   (#merch("fan"), null),
-    //   (#merch("baliHat"), null),
-    //   (#merch("towel"), null),
-    //   (#merch("hat"), null),
+    //   (#merch("bag"), null),
+    //   (#merch("socks"), null),
     //   // -- special --
     //   (#special("jackpot"), null),
     //   (#special("superJackpot"), null),

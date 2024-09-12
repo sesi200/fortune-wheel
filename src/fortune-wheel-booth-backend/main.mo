@@ -38,7 +38,7 @@ shared ({ caller = initialController }) actor class Main() = self {
   let ICP_TX_AMOUNT_LIMIT = 90_000_000;
   let CKBTC_TX_AMOUNT_LIMIT = 10_000;
   // ckETH has 18 decimals: 1_000_000_000_000_000_000
-  let CKETH_TX_AMOUNT_LIMIT = 2_000_000_000_000_000;
+  let CKETH_TX_AMOUNT_LIMIT = 3_000_000_000_000_000;
   // ckUSDC has 6 decimals: 1_000_000
   let CKUSDC_TX_AMOUNT_LIMIT = 5_200_000;
 

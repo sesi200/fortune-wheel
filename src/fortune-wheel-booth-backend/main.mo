@@ -374,6 +374,14 @@ shared ({ caller = initialController }) actor class Main() = self {
     Iter.toArray(extractedPrincipals.entries());
   };
 
+  public shared query ({ caller }) func getExtractionsCount() : async Nat {
+    if (not isAdmin(caller)) {
+      throw Error.reject("Only admins can read extractions");
+    };
+
+    extractedPrincipals.size();
+  };
+
   public shared ({ caller }) func clearExtractions() {
     if (not isAdmin(caller)) {
       throw Error.reject("Only admins can clear extractions");

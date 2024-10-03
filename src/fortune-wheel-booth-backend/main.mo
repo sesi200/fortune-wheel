@@ -374,7 +374,11 @@ shared ({ caller = initialController }) actor class Main() = self {
     Iter.toArray(extractedPrincipals.entries());
   };
 
-  public func clearExtractions() {
+  public shared ({ caller }) func clearExtractions() {
+    if (not isAdmin(caller)) {
+      throw Error.reject("Only admins can clear extractions");
+    };
+
     for (key in extractedPrincipals.keys()) {
       extractedPrincipals.delete(key);
     };
